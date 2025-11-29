@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Vœux</title>
+    <style>
+        form {
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-family: system-ui;
+        }
+
+        input,
+        button,
+        select {
+            padding: .7rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0069d9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dashboard des Vœux</h1>
+    <h2>Liste des vœux</h2>
+    <a href="/add">Ajouter voeux</a>
+    <ul id="voeuxList"></ul>
+    <script>
+        const voeuxList = document.getElementById("voeuxList");
+        const voeuxForm = document.getElementById("voeuxForm");
+
+        // Fonction pour récupérer les voeux
+        async function fetchVoeux() {
+            const res = await fetch("/api/voeux");
+            const data = await res.json();             
+
+            voeuxList.innerHTML = data.map(v => `<li>
+                 <strong>Nom : ${v.nom}</strong>
+                ${v.image ? `<br><img src="/${v.image}" width="150"/>` : ""}
+                 <p>Texte : ${v.texte}  <i>Date : (${v.date_publication})</i></p>
+                 </li>
+            `).join("");
+        }
+
+        fetchVoeux();
+    </script>
+</body>
+
+</html>

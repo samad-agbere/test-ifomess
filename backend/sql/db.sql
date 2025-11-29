@@ -1,0 +1,14 @@
+CREATE TABLE voeux (
+  id SERIAL PRIMARY KEY,
+  nom VARCHAR(100) NOT NULL,
+  texte TEXT NOT NULL,
+  image TEXT,
+  date_publication TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE photos (
+    id SERIAL PRIMARY KEY,
+    nom TEXT NOT NULL,
+    url TEXT NOT NULL,
+    date_publication TIMESTAMP NOT NULL DEFAULT NOW()
+);
